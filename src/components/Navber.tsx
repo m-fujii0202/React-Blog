@@ -9,7 +9,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 
- export const Navber = () => {
+ export const Navber = ({ isAuth }:any) => {
     return (
     <Snav>
       <Link to="/">
@@ -22,10 +22,19 @@ import {
       記事投稿
       </Link>
 
-      <Link to="/login">
-      <FontAwesomeIcon icon={faArrowRightToBracket} />
-      ログイン
-      </Link>
+      {!isAuth ? (
+        <Link to="/login">
+        <FontAwesomeIcon icon={faArrowRightToBracket} />
+        ログイン
+        </Link>
+      ) :(
+        <Link to="/logout">
+        <FontAwesomeIcon icon={faArrowRightToBracket} />
+        ログアウト
+        </Link>
+      ) }
+
+      
     </Snav>
     )
 };
