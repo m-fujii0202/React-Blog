@@ -9,7 +9,8 @@ const Login = ({setIsAuth}:any) => {
         //Googleでログイン
         signInWithPopup(auth, provider).then((result)=>{
         //  console.log(result);
-         localStorage.setItem("isAuth", true);
+        //setItemの中のfalseは本当は文字列ではないよ
+         localStorage.setItem("isAuth", "true");
          setIsAuth(true);
          navigate("/");
 ;        });
