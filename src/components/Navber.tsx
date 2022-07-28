@@ -1,13 +1,40 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { 
+    faHouse, 
+    faFilePen, 
+    faArrowRightToBracket 
+} from '@fortawesome/free-solid-svg-icons'
 
- export const Navber = () => {
+
+ export const Navber = ({ isAuth }:any) => {
     return (
     <Snav>
-      <Link to="/">ホーム</Link>
-      <Link to="/createpost">記事投稿</Link>
-      <Link to="/login">ログイン</Link>
+      <Link to="/">
+        <FontAwesomeIcon icon={faHouse} />
+        ホーム
+        </Link>
+
+      <Link to="/createpost">
+      <FontAwesomeIcon icon={faFilePen} />
+      記事投稿
+      </Link>
+
+      {!isAuth ? (
+        <Link to="/login">
+        <FontAwesomeIcon icon={faArrowRightToBracket} />
+        ログイン
+        </Link>
+      ) :(
+        <Link to="/logout">
+        <FontAwesomeIcon icon={faArrowRightToBracket} />
+        ログアウト
+        </Link>
+      ) }
+
+      
     </Snav>
     )
 };
@@ -29,3 +56,7 @@ const Snav = styled.div`
 //   Snav a:hover{
 //    color:cadetblue;
 //   }
+
+// nav a avg [
+//     margin-right: 5px;
+// ]
