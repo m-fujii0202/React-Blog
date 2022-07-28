@@ -1,19 +1,36 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 const CreatePost:any = () => {
+    const [title, setTitle] = useState<any>();
+    const [postText, setPostTitle] = useState<any>();
+
+    const createPost = ()=> {
+        console.log(title)
+        console.log(postText)
+
+    }
+
     return (
     <ScreatePostPage>
         <SpostContainer>
             <Sh1>記事を投稿する</Sh1>
             <div className="inputPost">
                 <div>タイトル</div>
-                <Sinput type="text" placeholder="タイトルを記入" />
+                <Sinput 
+                 type="text" 
+                 placeholder="タイトルを記入" 
+                 onChange={(e)=>setTitle(e.target.value)}
+                 />
             </div>
             <div className="inputPost">
                 <div>投稿</div>
-                <Stextarea placeholder="投稿内容を記入"></Stextarea>
+                <Stextarea 
+                 placeholder="投稿内容を記入"
+                 onChange={(e)=>setPostTitle(e.target.value)}
+                 ></Stextarea>
             </div>
-            <Sbutton className="postButton">投稿する</Sbutton>
+            <Sbutton className="postButton" onClick={createPost}>投稿する</Sbutton>
         </SpostContainer>
     </ScreatePostPage>
     )
