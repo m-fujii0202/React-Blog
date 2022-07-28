@@ -6,47 +6,47 @@ import { auth, db } from "../firebase";
 
 
 const CreatePost = () => {
-    const [title, setTitle] = useState<any>();
-    const [postText, setPostTitle] = useState<any>();
+    const [title, setTitle] = useState<string>();
+    const [postText, setPostTitle] = useState<string>();
 
     const navigate = useNavigate();
 
     const createPost = async () => {
-    //     console.log(title);
-    //     console.log(postText);
-       await addDoc(collection(db, "posts"),{
-        title:title,
-        postsText:postText,
-        author:{
-            username:auth.currentUser?.displayName,
-            id:auth.currentUser?.uid,
-        },
-       });
-       navigate("/");
+        //     console.log(title);
+        //     console.log(postText);
+        await addDoc(collection(db, "posts"), {
+            title: title,
+            postsText: postText,
+            author: {
+                username: auth.currentUser?.displayName,
+                id: auth.currentUser?.uid,
+            },
+        });
+        navigate("/");
     };
 
     return (
-    <ScreatePostPage>
-        <SpostContainer>
-            <Sh1>記事を投稿する</Sh1>
-            <div className="inputPost">
-                <div>タイトル</div>
-                <Sinput 
-                 type="text" 
-                 placeholder="タイトルを記入" 
-                 onChange={(e)=>setTitle(e.target.value)}
-                 />
-            </div>
-            <div className="inputPost">
-                <div>投稿</div>
-                <Stextarea 
-                 placeholder="投稿内容を記入"
-                 onChange={(e)=>setPostTitle(e.target.value)}
-                 ></Stextarea>
-            </div>
-            <Sbutton className="postButton" onClick={createPost}>投稿する</Sbutton>
-        </SpostContainer>
-    </ScreatePostPage>
+        <ScreatePostPage>
+            <SpostContainer>
+                <Sh1>記事を投稿する</Sh1>
+                <div className="inputPost">
+                    <div>タイトル</div>
+                    <Sinput
+                        type="text"
+                        placeholder="タイトルを記入"
+                        onChange={(e) => setTitle(e.target.value)}
+                    />
+                </div>
+                <div className="inputPost">
+                    <div>投稿</div>
+                    <Stextarea
+                        placeholder="投稿内容を記入"
+                        onChange={(e) => setPostTitle(e.target.value)}
+                    ></Stextarea>
+                </div>
+                <Sbutton className="postButton" onClick={createPost}>投稿する</Sbutton>
+            </SpostContainer>
+        </ScreatePostPage>
     )
 };
 
@@ -70,10 +70,10 @@ const SpostContainer = styled.div`
  box-shadow: 12px 14px 5px 13px #777777;
  `
 
- const Sh1 = styled.h1`
+const Sh1 = styled.h1`
  margin:0;
  `
- 
+
 
 const Sinput = styled.input`
     width:100%;
@@ -81,7 +81,7 @@ const Sinput = styled.input`
     outline:none;
     padding:0 4px;
 `
-    
+
 
 
 const Stextarea = styled.textarea`

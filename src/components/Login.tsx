@@ -1,26 +1,31 @@
 import { signInWithPopup } from "firebase/auth";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, provider } from "../firebase";
 
+export type PropsType = {
+    setIsAuth: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-const Login = ({setIsAuth}:any) => {
+const Login = (props: PropsType) => {
+    const { setIsAuth } = props;
     const navigate = useNavigate();
-    const loginInWithGoogle = ()=> {
+    const loginInWithGoogle = () => {
         //Googleでログイン
-        signInWithPopup(auth, provider).then((result)=>{
-        //  console.log(result);
-        //setItemの中のfalseは本当は文字列ではないよ
-         localStorage.setItem("isAuth", "true");
-         setIsAuth(true);
-         navigate("/");
-;        });
+        signInWithPopup(auth, provider).then((result) => {
+            //  console.log(result);
+            localStorage['isAuth'] = true;
+            setIsAuth(true);
+            navigate("/");
+            ;
+        });
     };
 
     return (
-    <div>
-        <p>ログインして始める</p>
-        <button onClick={loginInWithGoogle}>Googleで始める</button>
-    </div>
+        <div>
+            <p>ログインして始める</p>
+            <button onClick={loginInWithGoogle}>Googleで始める</button>
+        </div>
     )
 };
 

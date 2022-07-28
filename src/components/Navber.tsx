@@ -2,41 +2,46 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { 
-    faHouse, 
-    faFilePen, 
-    faArrowRightToBracket 
+import {
+  faHouse,
+  faFilePen,
+  faArrowRightToBracket
 } from '@fortawesome/free-solid-svg-icons'
 
+type PropsType = {
+  isAuth: boolean;
+}
 
- export const Navber = ({ isAuth }:any) => {
-    return (
+
+export const Navber = (props: PropsType) => {
+  const { isAuth } = props;
+  return (
     <Snav>
-      <Link to="/">
+      <NavLink to="/">
         <FontAwesomeIcon icon={faHouse} />
         ホーム
-        </Link>
+      </NavLink>
 
-      <Link to="/createpost">
-      <FontAwesomeIcon icon={faFilePen} />
-      記事投稿
-      </Link>
+      <NavLink to="/createpost">
+        <FontAwesomeIcon icon={faFilePen} />
+        記事投稿
+      </NavLink>
 
       {!isAuth ? (
-        <Link to="/login">
-        <FontAwesomeIcon icon={faArrowRightToBracket} />
-        ログイン
-        </Link>
-      ) :(
-        <Link to="/logout">
-        <FontAwesomeIcon icon={faArrowRightToBracket} />
-        ログアウト
-        </Link>
-      ) }
+        <NavLink to="/login">
+          <FontAwesomeIcon icon={faArrowRightToBracket} />
+          ログイン
+        </NavLink>
+      ) : (
+        <NavLink to="/logout">
+          <FontAwesomeIcon icon={faArrowRightToBracket} />
+          ログアウト
+        </NavLink>
+      )}
 
-      
+
     </Snav>
-    )
+  )
 };
 
 const Snav = styled.div`
@@ -48,15 +53,15 @@ const Snav = styled.div`
  gap:45px;
 `;
 
-// Snav a {
-//     text-decoration:none;
-//     color:while;
-//     transition:all 0.3s;
-// }
-//   Snav a:hover{
-//    color:cadetblue;
-//   }
+const NavLink = styled(Link)`
+    text-decoration: none;
+    color:#fff;
+    font-size: 20px;
+    margin: 5px 0;
+    transition:all 0.3s;
+    &:hover {
+        opacity: 0.7;
+        color: #000;
+    }
+`;
 
-// nav a avg [
-//     margin-right: 5px;
-// ]

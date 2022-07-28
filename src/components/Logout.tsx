@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 
 
-const Logout = ({setIsAuth}:any) => {
+const Logout = ({ setIsAuth }: any) => {
     const navigate = useNavigate();
     const logout = () => {
         //ログアウト
-        signOut(auth).then(()=>{
+        signOut(auth).then(() => {
             localStorage.clear();
             setIsAuth(false);
             navigate("/login");
@@ -16,10 +16,10 @@ const Logout = ({setIsAuth}:any) => {
     };
 
     return (
-    <div>
-        <p>ログアウト</p>
-        <button onClick={logout}>ログアウト</button>
-    </div>
+        <div>
+            <p>ログアウト</p>
+            <button onClick={logout}>ログアウト</button>
+        </div>
     );
 };
 
