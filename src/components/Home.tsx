@@ -18,7 +18,6 @@ const Home = () => {
    useEffect(() => {
     const getPage = async () => {
       const data = await getDocs(collection(db, "posts"));
-      console.log("最終的にとってきたデータ");
       const dataList: PostType[] = data.docs.map((doc) => ({
         author: {
           id: doc.data().author.id,
@@ -28,7 +27,7 @@ const Home = () => {
         postsText: doc.data().postsText,
         title: doc.data().title,
       }));
-      console.log(dataList);
+    //   console.log(dataList);
       setpostList(dataList);
     };
     getPage();

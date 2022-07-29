@@ -15,8 +15,6 @@ const CreatePost = ({isAuth}:PropsType) => {
   const navigate = useNavigate();
 
   const createPost = async () => {
-    //     console.log(title);
-    //     console.log(postText);
     await addDoc(collection(db, "posts"), {
       title: title,
       postsText: postText,

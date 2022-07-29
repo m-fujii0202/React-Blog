@@ -13,7 +13,6 @@ const Login = (props: PropsType) => {
     const loginInWithGoogle = () => {
         //Googleでログイン
         signInWithPopup(auth, provider).then((result) => {
-            //  console.log(result);
             localStorage['isAuth'] = true;
             setIsAuth(true);
             navigate("/");

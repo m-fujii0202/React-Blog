@@ -14,8 +14,6 @@ type PropsType = {
 
 export const Navber = (props: PropsType) => {
   const { isAuth } = props;
-  console.log(typeof(isAuth));
-
   
   return (
     <Snav>
