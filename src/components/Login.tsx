@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { auth, provider } from "../firebase";
 
 export type PropsType = {
-    setIsAuth: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsAuth: React.Dispatch<React.SetStateAction<string | null |boolean>>;
 }
 
 const Login = (props: PropsType) => {

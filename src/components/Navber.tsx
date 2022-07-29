@@ -9,7 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 type PropsType = {
-  isAuth: boolean;
+  isAuth: string | null;
 };
 
 export const Navber = (props: PropsType) => {

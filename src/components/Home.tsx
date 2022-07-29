@@ -1,30 +1,46 @@
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase";
+import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
+import { auth, db } from "../firebase";
 
-const Home:any = () => {
-   const [postList, setpostList] = useState<any[]>([]);
+type PostType = {
+    author:{id: string, username:string};
+    id: string;
+    postsText:string;
+    title: string;
+}
+
+
+const Home = () => {
+   const [postList, setpostList] = useState<PostType[]>([]);
+   
 
    useEffect(()=>{
     const getPage = async ()=>{
-        const data = await getDocs(collection(db,"posts"))
+        const data = await getDocs(collection(db,"posts"));
         // console.log(data);
         // console.log(data.docs);
         // console.log(data.docs.map((doc)=>({doc})));
-        // console.log("最終的にとってきたデータ");
+        console.log("最終的にとってきたデータ");
         // console.log(data.docs.map((doc)=>({...doc.data(),id:doc.id})));
-        setpostList(data.docs.map((doc)=>({...doc.data(),id:doc.id})));
+        const dataList = (data.docs.map((doc)=>({...doc.data(),id:doc.id})));
+        console.log(dataList);
+        setpostList(dataList);
     }
     getPage();
    },[]);
 
+   const hendleDelete = async (id:string)=>{
+    await deleteDoc(doc(db, "posts",id));
+    //リロードなしで削除ボタンが画面に反映する「window.location.href 」
+    window.location.href = "/";
+   }
+
     return (
     <ShomePage>
-        {postList.map((post:any)=>{
-            console.log(post);
+        {postList.map((post:PostType)=>{
             return(
-            <SpostContents>
+            <SpostContents key={post.id}>
                 <div className="postHeader">
                     <Sh1>{post.title}</Sh1>
                 </div>
@@ -32,8 +48,10 @@ const Home:any = () => {
                    {post.postsText}
                 </SpostTextContainer>
                 <SnameAndDeleteButton>
-                <Sh3>@username</Sh3>
-                <Sbutton>削除</Sbutton>
+                <Sh3>@{post.author.username}</Sh3>
+                {post.author.id === auth.currentUser?.uid && (
+                <Sbutton onClick={() => hendleDelete(post.id)}>削除</Sbutton>
+                )}
                 </SnameAndDeleteButton>
             </SpostContents>
             )
