@@ -8,7 +8,10 @@ import { useState } from 'react';
 import Logout from './components/Logout';
 
 function App() {
-  const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
+  const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth") ? true : false);
+  console.log(isAuth);
+  ;
+  
 
   return (
     <Router>

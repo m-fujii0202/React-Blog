@@ -9,11 +9,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 type PropsType = {
-  isAuth: string | null;
+  isAuth: boolean;
 };
 
 export const Navber = (props: PropsType) => {
   const { isAuth } = props;
+  console.log(typeof(isAuth));
+
+  
   return (
     <Snav>
       <NavLink to="/">

@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { auth, db } from "../firebase";
 
 type PropsType = {
-  isAuth: string | null;
+  isAuth: boolean;
 }
 
 const CreatePost = ({isAuth}:PropsType) => {

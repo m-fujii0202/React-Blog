@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import { auth, db } from "../firebase";
 
-type PostType = {
+type PostType =  {
     author:{id: string, username:string};
-    id: string;
     postsText:string;
     title: string;
+    id: string;
 }
 
 
@@ -15,22 +15,26 @@ const Home = () => {
    const [postList, setpostList] = useState<PostType[]>([]);
    
 
-   useEffect(()=>{
-    const getPage = async ()=>{
-        const data = await getDocs(collection(db,"posts"));
-        // console.log(data);
-        // console.log(data.docs);
-        // console.log(data.docs.map((doc)=>({doc})));
-        console.log("最終的にとってきたデータ");
-        // console.log(data.docs.map((doc)=>({...doc.data(),id:doc.id})));
-        const dataList = (data.docs.map((doc)=>({...doc.data(),id:doc.id})));
-        console.log(dataList);
-        setpostList(dataList);
-    }
+   useEffect(() => {
+    const getPage = async () => {
+      const data = await getDocs(collection(db, "posts"));
+      console.log("最終的にとってきたデータ");
+      const dataList: PostType[] = data.docs.map((doc) => ({
+        author: {
+          id: doc.data().author.id,
+          username: doc.data().author.username,
+        },
+        id: doc.id,
+        postsText: doc.data().postsText,
+        title: doc.data().title,
+      }));
+      console.log(dataList);
+      setpostList(dataList);
+    };
     getPage();
-   },[]);
+  }, []);
 
-   const hendleDelete = async (id:string)=>{
+   const hendleDelete = async (id: string)=>{
     await deleteDoc(doc(db, "posts",id));
     //リロードなしで削除ボタンが画面に反映する「window.location.href 」
     window.location.href = "/";
