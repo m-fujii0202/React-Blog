@@ -1,21 +1,44 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase";
 
 const Home:any = () => {
+   const [postList, setpostList] = useState<any[]>([]);
+
+   useEffect(()=>{
+    const getPage = async ()=>{
+        const data = await getDocs(collection(db,"posts"))
+        // console.log(data);
+        // console.log(data.docs);
+        // console.log(data.docs.map((doc)=>({doc})));
+        // console.log("最終的にとってきたデータ");
+        // console.log(data.docs.map((doc)=>({...doc.data(),id:doc.id})));
+        setpostList(data.docs.map((doc)=>({...doc.data(),id:doc.id})));
+    }
+    getPage();
+   },[]);
+
     return (
     <ShomePage>
-        <SpostContents>
-            <div className="postHeader">
-                <Sh1>タイトル</Sh1>
-            </div>
-            <SpostTextContainer>
-                React学集中です!
-            </SpostTextContainer>
-            <SnameAndDeleteButton>
-               <Sh3>@makoto</Sh3>
-               <Sbutton>削除</Sbutton>
-            </SnameAndDeleteButton>
-        </SpostContents>
+        {postList.map((post:any)=>{
+            console.log(post);
+            return(
+            <SpostContents>
+                <div className="postHeader">
+                    <Sh1>{post.title}</Sh1>
+                </div>
+                <SpostTextContainer>
+                   {post.postsText}
+                </SpostTextContainer>
+                <SnameAndDeleteButton>
+                <Sh3>@username</Sh3>
+                <Sbutton>削除</Sbutton>
+                </SnameAndDeleteButton>
+            </SpostContents>
+            )
+        })}
+        
     </ShomePage>
     )
 };
